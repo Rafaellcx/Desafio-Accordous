@@ -16,5 +16,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::namespace('Api')->group( function(){
     Route::post('imovel/store', 'ImovelController@store');
+    Route::get('imovel/index', 'ImovelController@index');
 
 });

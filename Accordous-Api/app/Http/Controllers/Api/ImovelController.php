@@ -16,7 +16,15 @@ class ImovelController extends Controller
      */
     public function index()
     {
-        //
+        $Imovel = Imovel::all();
+
+        if(count($Imovel) == 0){
+            $retorno['tipo'] =  'erro';
+            $retorno['mensagem'] = 'Nenhum registro encontrado.';
+            return json_encode($retorno);
+        }
+
+        return $Imovel;
     }
 
     /**

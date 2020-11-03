@@ -22,6 +22,7 @@ class CreateImovelsTable extends Migration
             $table->string('bairro', 100);
             $table->string('cidade', 100);
             $table->string('estado', 2);
+            $table->string('status', 1)->set('status', ['C', 'N']);
             $table->timestamps();
             $table->softDeletes('deleted_at', 0);
         });

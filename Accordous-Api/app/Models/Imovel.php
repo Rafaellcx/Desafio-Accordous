@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use DB;
 
 class Imovel extends Model
 {
@@ -48,4 +49,18 @@ class Imovel extends Model
         'estado' => 'string',
         
     ];
+
+    protected $appends = ['EnderecoCompleto'];
+    
+    public function getEnderecoCompletoAttribute(){
+        $Imovel = Imovel::select('rua', 'numero', 'cidade', 'estado')
+        ->get();
+        
+        $enderecoCompleto = '';
+        
+        foreach ($Imovel as $key => $value) {
+            $enderecoCompleto = $value['rua'].', '.$value['numero'].', '.$value['cidade'].' - '.$value['estado'];
+        }
+        return $enderecoCompleto;
+    }
 }
