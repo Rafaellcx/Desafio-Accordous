@@ -1,0 +1,5 @@
+Instaldos no projeto:
+
+composer require doctrine/dbal
+
+composer require laravellegends/pt-br-validator

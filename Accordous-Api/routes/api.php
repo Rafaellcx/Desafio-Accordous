@@ -15,7 +15,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::namespace('Api')->group( function(){
-    Route::post('imovel/store', 'ImovelController@store');
-    Route::get('imovel/index', 'ImovelController@index');
-
+    Route::get('propriedade/index', 'PropriedadeController@index');
+    Route::post('propriedade/store', 'PropriedadeController@store');
+    Route::get('propriedade/destroy/{id?}', 'PropriedadeController@destroy');
+    
+    Route::get('contrato/index', 'ContratoController@index');
+    Route::post('contrato/store', 'ContratoController@store');
 });

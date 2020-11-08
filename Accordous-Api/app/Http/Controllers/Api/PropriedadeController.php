@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Models\Imovel;
+use App\Models\Propriedade;
 
-class ImovelController extends Controller
+class PropriedadeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,28 +16,18 @@ class ImovelController extends Controller
      */
     public function index()
     {
-        $Imovel = Imovel::all();
+        $Propriedade = Propriedade::all();
 
-        if(count($Imovel) == 0){
+        if(count($Propriedade) == 0){
             $retorno['tipo'] =  'erro';
             $retorno['mensagem'] = 'Nenhum registro encontrado.';
             return json_encode($retorno);
         }
 
-        return $Imovel;
+        return $Propriedade;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
+     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -52,58 +42,25 @@ class ImovelController extends Controller
         }
 
         try {
-            $Imovel = new Imovel();
-            $Imovel->email       = 
-            $Imovel->rua         = $request->rua;
-            $Imovel->numero      = $request->numero;
-            $Imovel->complemento = $request->complemento;
-            $Imovel->bairro      = $request->bairro;
-            $Imovel->cidade      = $request->cidade;
-            $Imovel->estado      = $request->estado;
-            $Imovel->save();
+            $Propriedade = new Propriedade();
+            $Propriedade->email       = $request->email;
+            $Propriedade->rua         = $request->rua;
+            $Propriedade->numero      = $request->numero;
+            $Propriedade->complemento = $request->complemento;
+            $Propriedade->bairro      = $request->bairro;
+            $Propriedade->cidade      = $request->cidade;
+            $Propriedade->estado      = $request->estado;
+            $Propriedade->status      = 'N';//'Não Contratado' - OBS: Após Criar o Contrato, atualizar o Status para "C - Contratado".
+            $Propriedade->save();
 
             $retorno['tipo']     = 'sucesso';
-            $retorno['mensagem'] = 'Imóvel cadastrado com Sucesso.';
+            $retorno['mensagem'] = 'Propriedade cadastrada com Sucesso.';
             return json_encode($retorno);
         } catch (\Throwable $th) {
             $retorno['tipo'] =  'erro';
-            $retorno['mensagem'] = 'Ops, ocorreu um erro ao tentar salvar os dados do imóvel.';
+            $retorno['mensagem'] = 'Ops, ocorreu um erro ao tentar salvar os dados da Propriedade.';
             return json_encode($retorno);
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     /**
@@ -114,7 +71,34 @@ class ImovelController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $Propriedade = Propriedade::find($id)->delete();
+        } catch (\Throwable $th) {
+            $retorno['tipo'] =  'erro';
+            $retorno['mensagem'] = 'Ops, ocorreu um erro ao tentar excluir os dados da propriedade.';
+            return json_encode($retorno);
+        }
+
+        $retorno['tipo']     = 'sucesso';
+        $retorno['mensagem'] = 'Propriedade excluída com Sucesso.';
+        return json_encode($retorno);
+    }
+
+    public function atualizaStatus($id){
+
+        try {
+            $Propriedade = Propriedade::find($id)
+            ->update(['status'=>'C']); //OBS: Após Criar o Contrato, atualizar o Status para "C - Contratado".
+        } catch (\Throwable $th) {
+            $retorno['tipo'] =  'erro';
+            $retorno['mensagem'] = 'Ops, ocorreu um erro ao tentar atualizar o status da propriedade.';
+            return json_encode($retorno);
+        }
+
+        $retorno['tipo']     = 'sucesso';
+        $retorno['mensagem'] = 'Status atualizado com Sucesso.';
+        return json_encode($retorno);
+
     }
 
     public function validaCampos(Request $request){

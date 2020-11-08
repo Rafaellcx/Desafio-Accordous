@@ -6,12 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use DB;
 
-class Imovel extends Model
+class Propriedade extends Model
 {
-
     use SoftDeletes;
     
-    public $table = 'imovel';
+    public $table = 'propriedade';
 
     protected $primaryKey = 'id';
 
@@ -31,6 +30,7 @@ class Imovel extends Model
         'bairro',
         'cidade',
         'estado',
+        'status',
        
     ];
 
@@ -47,20 +47,46 @@ class Imovel extends Model
         'bairro' => 'string',
         'cidade' => 'string',
         'estado' => 'string',
+        'status' => 'string',
         
     ];
 
-    protected $appends = ['EnderecoCompleto'];
+    protected $appends = ['EnderecoCompleto', 'StatusDesc'];
     
     public function getEnderecoCompletoAttribute(){
-        $Imovel = Imovel::select('rua', 'numero', 'cidade', 'estado')
+        $Propriedade = Propriedade::select('rua', 'numero', 'cidade', 'estado')
         ->get();
         
         $enderecoCompleto = '';
         
-        foreach ($Imovel as $key => $value) {
+        foreach ($Propriedade as $key => $value) {
             $enderecoCompleto = $value['rua'].', '.$value['numero'].', '.$value['cidade'].' - '.$value['estado'];
         }
         return $enderecoCompleto;
+    }
+    
+    public function getStatusDescAttribute(){
+        $Propriedade = Propriedade::select('status')
+        ->get();
+        
+        $statusDesc = '';
+        
+        foreach ($Propriedade as $key => $value) {
+            switch ($value['status']) {
+                case 'C':
+                    $statusDesc = 'Contratado';
+                    break;
+                
+                case 'N':
+                    $statusDesc = 'Não Contratado';
+                    break;
+                
+                default:
+                $statusDesc = '';
+                    break;
+            }
+            
+        }
+        return $statusDesc;
     }
 }
