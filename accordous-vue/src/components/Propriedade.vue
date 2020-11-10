@@ -1,5 +1,5 @@
 <template>
-    <div style="margin:10px">
+    <div style="margin:10px" >
         <div class="mt-3">
             <b-card-group deck>
                 <b-card header="Propriedade" class="text-center">
