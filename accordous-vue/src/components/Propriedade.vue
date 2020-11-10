@@ -13,8 +13,8 @@
                         ></b-table>
 
                         <div>
-                            Sorting By: <b>{{ sortBy }}</b>, Sort Direction:
-                            <b>{{ sortDesc ? 'Descending' : 'Ascending' }}</b>
+                            Ordenado Por: <b>{{ sortBy }}</b>, Ordem:
+                            <b>{{ sortDesc ? 'Descendente' : 'Ascendente' }}</b>
                         </div>
                     </b-card-text>
                 </b-card>
@@ -25,26 +25,51 @@
 </template>
 
 <script>
-
+  import axios from 'axios'
   export default {
     name: 'Propriedade',
     data() {
       return {
-        sortBy: 'age',
+        sortBy: 'email',
         sortDesc: false,
         fields: [
-          { key: 'last_name', sortable: true },
-          { key: 'first_name', sortable: true },
-          { key: 'age', sortable: true },
-          { key: 'isActive', sortable: false }
+          { key: 'email', sortable: true },
+          { key: 'rua', sortable: true },
+          { key: 'complemento', sortable: true },
+          { key: 'bairro', sortable: true },
+          { key: 'cidade', sortable: true },
+          { key: 'estado', sortable: true },
+          { key: 'status', sortable: true },
         ],
-        items: [
-          { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-          { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
-          { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
-          { isActive: true, age: 38, first_name: 'Jami', last_name: 'Carney' }
-        ]
+        items: [],
+        // items: [
+        //   { email: 'jonas@gmail.com', rua: 'Rua dos inocentes', complemento: 's/c', bairro: 'Bairro dos sonhos', cidade:'Cidade dos Sonhos', estado:'Estado dos Sonhos', status:'C' },
+        //   // { bairro: false, complemento: 21, rua: 'Larsen', email: 'Shaw' },
+        //   // { bairro: false, complemento: 89, rua: 'Geneva', email: 'Wilson' },
+        //   // { bairro: true, complemento: 38, rua: 'Jami', email: 'Carney' }
+        // ]
       }
-    }
+    },
+      mounted () {
+          axios
+          .get('http://127.0.0.1:8000/api/propriedade/index')
+          .then(response => {
+            // console.log(response.data);
+            for (let index = 0; index < response.data.length; index++) {
+            this.items.push({
+              id:response.data[index].id,
+              email:response.data[index].email,
+              rua:response.data[index].rua,
+              complemento:response.data[index].complemento,
+              bairro:response.data[index].bairro,
+              cidade:response.data[index].cidade,
+              estado:response.data[index].estado,
+              status:response.data[index].StatusDesc,
+            })
+            }
+            // if(response.data.tipo == 'erro'){
+            // }
+            })
+      }
   }
 </script>

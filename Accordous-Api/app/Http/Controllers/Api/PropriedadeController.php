@@ -58,7 +58,7 @@ class PropriedadeController extends Controller
             return json_encode($retorno);
         } catch (\Throwable $th) {
             $retorno['tipo'] =  'erro';
-            $retorno['mensagem'] = 'Ops, ocorreu um erro ao tentar salvar os dados da Propriedade.';
+            $retorno['mensagem'] = 'Ops, ocorreu um erro ao tentar salvar os dados da Propriedade.'.$th;
             return json_encode($retorno);
         }
     }
