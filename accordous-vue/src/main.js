@@ -9,12 +9,14 @@ import VueAxios from 'vue-axios'
 
 import VueRouter from 'vue-router'
 import router from './router'
+// import VueMask from 'v-mask'
 
-// import VueSweetalert2 from 'vue-sweetalert2'
+import { VueMaskDirective } from "v-mask";
+Vue.directive("mask", VueMaskDirective);
 
-// import 'sweetalert2/dist/sweetalert2.min.css'
 
 Vue.use(BootstrapVue, IconsPlugin, VueAxios, axios, VueRouter)
+// Vue.use(VueMask)
 
 Vue.config.productionTip = false
 

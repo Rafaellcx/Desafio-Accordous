@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 // import Home from '../views/Home.vue'
 
+import CadastrarContrato from '../pages/CadastrarContrato.vue'
+import Contrato from '../pages/Contrato.vue'
 import CadastrarPropriedade from '../pages/CadastrarPropriedade.vue'
 import Inicio from '../pages/Inicio.vue'
 
@@ -22,6 +24,16 @@ const routes = [
     path: '/inicio',
     name: 'Início',
     component: Inicio
+  },
+  {
+    path: '/cadastrarcontrato/:id/:enderecoCompleto',
+    name: 'Cadastrar Contrato',
+    component: CadastrarContrato
+  },
+  {
+    path: '/contrato/:id/:enderecoCompleto',
+    name: 'Contrato',
+    component: Contrato
   },
   {
     path: '/about',

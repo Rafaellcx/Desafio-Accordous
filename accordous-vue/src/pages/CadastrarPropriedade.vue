@@ -19,7 +19,6 @@
                                         aria-describedby="input-live-help input-live-feedback"
                                         placeholder="Informe o e-mail"
                                         trim
-                                        @blur="teste"
                                         ></b-form-input>
                                         <b-form-invalid-feedback id="input-live-feedback">
                                             E-mail não informado
@@ -206,10 +205,6 @@
         },
         methods: {
 
-            teste(){
-                console.log('Mudou de campo');
-                return this.email.length > 2 ? true : false
-            },
             onSubmit(evt) {
                 evt.preventDefault()
                 axios.post('http://127.0.0.1:8000/api/propriedade/store',{ 
@@ -270,6 +265,7 @@
                 this.show = true
                 })
             }
-        }
+        },
+        
     }
 </script>

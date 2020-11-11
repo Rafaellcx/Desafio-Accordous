@@ -38,6 +38,19 @@ class ContratoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function show(Request $request)
+    {
+        $Contrato = Contrato::find($request->id);
+
+        if(empty($Contrato)){
+            $retorno['tipo'] =  'erro';
+            $retorno['mensagem'] = 'Nenhum registro encontrado.';
+            return json_encode($retorno);
+        }
+
+        return json_encode($Contrato);
+    }
+
     public function store(Request $request)
     {
         
@@ -111,7 +124,7 @@ class ContratoController extends Controller
     public function destroy($id)
     {
         try {
-            $Contrato = Contrato::find($id)->delete();
+            $Contrato = Contrato::where('propriedade_id','=',$id)->delete();
         } catch (\Throwable $th) {
             $retorno['tipo'] =  'erro';
             $retorno['mensagem'] = 'Ops, ocorreu um erro ao tentar excluir os dados do contrato.';

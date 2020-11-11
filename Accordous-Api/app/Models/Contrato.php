@@ -45,18 +45,42 @@ class Contrato extends Model
         
     ];
 
-    protected $appends = ['Propriedade'];
+    protected $appends = ['Propriedade', 'TipoPessoaDesc'];
     
     public function getPropriedadeAttribute(){
-        $Contrato = Contrato::Join('propriedade', 'propriedade.id', '=', 'contrato.propriedade_id')
+        $Contrato = Contrato::where('contrato.id', '=', $this->id)
+        ->Join('propriedade', 'propriedade.id', '=', 'contrato.propriedade_id')
         ->select('propriedade.rua', 'propriedade.numero', 'propriedade.cidade', 'propriedade.estado')
-        ->get();
+        ->first();
         
         $enderecoCompleto = '';
         
-        foreach ($Contrato as $key => $value) {
-            $enderecoCompleto = $value['rua'].', '.$value['numero'].', '.$value['cidade'].' - '.$value['estado'];
-        }
+        $enderecoCompleto = $Contrato->rua.', '.$Contrato->numero.', '.$Contrato->cidade.' - '.$Contrato->estado;
+
         return $enderecoCompleto;
+    }
+    
+    public function getTipoPessoaDescAttribute(){
+        $Contrato = Contrato::where('contrato.id', '=', $this->id)
+        ->select('tipoPessoa')
+        ->first();
+        
+        $TipoPessoaDesc = '';
+        
+        switch ($Contrato->tipoPessoa) {
+            case 'F':
+                return 'Física';
+                break;
+            
+            case 'J':
+                return 'Jurídica';
+                break;
+            
+            default:
+            $statusDesc = '';
+                break;
+        }
+
+        return $TipoPessoaDesc;
     }
 }

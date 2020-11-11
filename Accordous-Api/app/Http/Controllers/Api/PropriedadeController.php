@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 use App\Models\Propriedade;
 
+use DB;
+
 class PropriedadeController extends Controller
 {
     /**
@@ -58,7 +60,7 @@ class PropriedadeController extends Controller
             return json_encode($retorno);
         } catch (\Throwable $th) {
             $retorno['tipo'] =  'erro';
-            $retorno['mensagem'] = 'Ops, ocorreu um erro ao tentar salvar os dados da Propriedade.'.$th;
+            $retorno['mensagem'] = 'Ops, ocorreu um erro ao tentar salvar os dados da Propriedade.';
             return json_encode($retorno);
         }
     }
@@ -69,19 +71,43 @@ class PropriedadeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
+        DB::beginTransaction();
+
         try {
-            $Propriedade = Propriedade::find($id)->delete();
+            $Propriedade = Propriedade::where('id', '=', $request->id)->delete();
+           
+            if(!$Propriedade){
+                $retorno['tipo'] =  'erro';
+                $retorno['mensagem'] = 'Ops, propriedade não encontrada.';
+                return json_encode($retorno);
+            }
+
+            $ContratoController = new ContratoController();
+            $destroyContrato = $ContratoController->destroy($request->id);
+
+            $json = json_decode($destroyContrato);
+            
+            if($json->{'tipo'} == 'erro'){
+                return $retorno;
+            }
+
+            DB::commit();
+
+            $retorno['tipo']     = 'sucesso';
+            $retorno['mensagem'] = 'Propriedade excluída com Sucesso.';
+            return json_encode($retorno);
+
         } catch (\Throwable $th) {
+            DB::rollback();
+
             $retorno['tipo'] =  'erro';
             $retorno['mensagem'] = 'Ops, ocorreu um erro ao tentar excluir os dados da propriedade.';
             return json_encode($retorno);
         }
 
-        $retorno['tipo']     = 'sucesso';
-        $retorno['mensagem'] = 'Propriedade excluída com Sucesso.';
-        return json_encode($retorno);
+        
     }
 
     public function atualizaStatus($id){

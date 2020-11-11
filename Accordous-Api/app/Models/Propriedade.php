@@ -54,39 +54,37 @@ class Propriedade extends Model
     protected $appends = ['EnderecoCompleto', 'StatusDesc'];
     
     public function getEnderecoCompletoAttribute(){
-        $Propriedade = Propriedade::select('rua', 'numero', 'cidade', 'estado')
-        ->get();
+        $Propriedade = Propriedade::where('id', '=', $this->id)
+        ->select('rua', 'numero', 'cidade', 'estado')
+        ->first();
         
         $enderecoCompleto = '';
-        
-        foreach ($Propriedade as $key => $value) {
-            $enderecoCompleto = $value['rua'].', '.$value['numero'].', '.$value['cidade'].' - '.$value['estado'];
-        }
-        return $enderecoCompleto;
+        $enderecoCompleto = $Propriedade->rua.', '.$Propriedade->numero.', '.$Propriedade->cidade.' - '.$Propriedade->estado;
+
+            return $enderecoCompleto;
     }
     
     public function getStatusDescAttribute(){
-        $Propriedade = Propriedade::select('status')
-        ->get();
+        $Propriedade = Propriedade::where('id', '=', $this->id)
+        ->select('status')
+        ->first();
         
         $statusDesc = '';
-        
-        foreach ($Propriedade as $key => $value) {
-            switch ($value['status']) {
-                case 'C':
-                    $statusDesc = 'Contratado';
-                    break;
-                
-                case 'N':
-                    $statusDesc = 'Não Contratado';
-                    break;
-                
-                default:
-                $statusDesc = '';
-                    break;
-            }
+
+        switch ($Propriedade->status) {
+            case 'C':
+                return 'Contratado';
+                break;
             
+            case 'N':
+                return 'Não Contratado';
+                break;
+            
+            default:
+            $statusDesc = '';
+                break;
         }
+       
         return $statusDesc;
     }
 }
