@@ -2,126 +2,128 @@
     <div>
         <h3>Cadastrar Propriedade</h3>
         <div style="margin:10px" >
-            <b-form @submit="onSubmit" @reset="onReset" v-if="show">
-                <div class="mt-3">
-                    <b-card-group deck>
-                        <b-card header="Nova Propriedade" class="text-left">
-                            <b-card-text>
-                                <div class="row justify-center">
-                                    <div role="group" class="col" style="padding: 10px">
-                                        <label for="input-live">E-mail:</label>
-                                        <b-form-input
-                                        type="email"
-                                        required
-                                        id="input-email"
-                                        v-model="email"
-                                        :state="emailState"
-                                        aria-describedby="input-live-help input-live-feedback"
-                                        placeholder="Informe o e-mail"
-                                        trim
-                                        ></b-form-input>
-                                        <b-form-invalid-feedback id="input-live-feedback">
-                                            E-mail não informado
-                                        </b-form-invalid-feedback>
+            <b-overlay :show="show" rounded="sm">
+                <b-form @submit="onSubmit" @reset="onReset">
+                    <div class="mt-3">
+                        <b-card-group deck>
+                            <b-card header="Nova Propriedade" class="text-left">
+                                <b-card-text>
+                                    <div class="row justify-center">
+                                        <div role="group" class="col" style="padding: 10px">
+                                            <label for="input-live">E-mail:</label>
+                                            <b-form-input
+                                            type="email"
+                                            required
+                                            id="input-email"
+                                            v-model="email"
+                                            :state="emailState"
+                                            aria-describedby="input-live-help input-live-feedback"
+                                            placeholder="Informe o e-mail"
+                                            trim
+                                            ></b-form-input>
+                                            <b-form-invalid-feedback id="input-live-feedback">
+                                                E-mail não informado
+                                            </b-form-invalid-feedback>
 
-                                    </div>
-                                    <div role="group" class="col" style="padding: 10px">
-                                        <label for="input-live">Rua:</label>
-                                        <b-form-input
-                                        type="text"
-                                        required
-                                        id="input-rua"
-                                        v-model="rua"
-                                        :state="ruaState"
-                                        aria-describedby="input-live-help input-live-feedback"
-                                        placeholder="Informe a Rua"
-                                        trim
-                                        ></b-form-input>
-                                        <b-form-invalid-feedback id="input-live-feedback">
-                                            Rua não informada
-                                        </b-form-invalid-feedback>
+                                        </div>
+                                        <div role="group" class="col" style="padding: 10px">
+                                            <label for="input-live">Rua:</label>
+                                            <b-form-input
+                                            type="text"
+                                            required
+                                            id="input-rua"
+                                            v-model="rua"
+                                            :state="ruaState"
+                                            aria-describedby="input-live-help input-live-feedback"
+                                            placeholder="Informe a Rua"
+                                            trim
+                                            ></b-form-input>
+                                            <b-form-invalid-feedback id="input-live-feedback">
+                                                Rua não informada
+                                            </b-form-invalid-feedback>
 
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row justify-center">
-                                    <div role="group" class="col" style="padding: 10px">
-                                        <label for="input-live">Número:</label>
-                                        <b-form-input
-                                        type="number"
-                                        required
-                                        id="input-numero"
-                                        v-model="numero"
-                                        :state="numeroState"
-                                        aria-describedby="input-live-help input-live-feedback"
-                                        placeholder="Informe o Número"
-                                        trim
-                                        ></b-form-input>
-                                        <b-form-invalid-feedback id="input-live-feedback">
-                                            Número não informado
-                                        </b-form-invalid-feedback>
+                                    <div class="row justify-center">
+                                        <div role="group" class="col" style="padding: 10px">
+                                            <label for="input-live">Número:</label>
+                                            <b-form-input
+                                            type="number"
+                                            required
+                                            id="input-numero"
+                                            v-model="numero"
+                                            :state="numeroState"
+                                            aria-describedby="input-live-help input-live-feedback"
+                                            placeholder="Informe o Número"
+                                            trim
+                                            ></b-form-input>
+                                            <b-form-invalid-feedback id="input-live-feedback">
+                                                Número não informado
+                                            </b-form-invalid-feedback>
+                                        </div>
+                                        <div role="group" class="col" style="padding: 10px">
+                                            <label for="input-live">Complemento:</label>
+                                            <b-form-input
+                                            type="text"
+                                            id="input-complemento"
+                                            v-model="complemento"
+                                            aria-describedby="input-live-help input-live-feedback"
+                                            placeholder="Informe o Complemento"
+                                            trim
+                                            ></b-form-input>
+                                        </div>
                                     </div>
-                                    <div role="group" class="col" style="padding: 10px">
-                                        <label for="input-live">Complemento:</label>
-                                        <b-form-input
-                                        type="text"
-                                        id="input-complemento"
-                                        v-model="complemento"
-                                        aria-describedby="input-live-help input-live-feedback"
-                                        placeholder="Informe o Complemento"
-                                        trim
-                                        ></b-form-input>
+                                    <div class="row justify-center">
+                                        <div role="group" class="col" style="padding: 10px">
+                                            <label for="input-live">Bairro:</label>
+                                            <b-form-input
+                                            type="text"
+                                            required
+                                            id="input-bairro"
+                                            v-model="bairro"
+                                            :state="bairroState"
+                                            aria-describedby="input-live-help input-live-feedback"
+                                            placeholder="Informe o Bairro"
+                                            trim
+                                            ></b-form-input>
+                                            <b-form-invalid-feedback id="input-live-feedback">
+                                                Bairro não informado
+                                            </b-form-invalid-feedback>
+                                        </div>
+                                        <div role="group" class="col" style="padding: 10px">
+                                            <label for="input-live">Cidade:</label>
+                                            <b-form-input
+                                            type="text"
+                                            required
+                                            id="input-cidade"
+                                            v-model="cidade"
+                                            :state="cidadeState"
+                                            aria-describedby="input-live-help input-live-feedback"
+                                            placeholder="Informe a Cidade"
+                                            trim
+                                            ></b-form-input>
+                                            <b-form-invalid-feedback id="input-live-feedback">
+                                                Cidade não informada
+                                            </b-form-invalid-feedback>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row justify-center">
-                                    <div role="group" class="col" style="padding: 10px">
-                                        <label for="input-live">Bairro:</label>
-                                        <b-form-input
-                                        type="text"
-                                        required
-                                        id="input-bairro"
-                                        v-model="bairro"
-                                        :state="bairroState"
-                                        aria-describedby="input-live-help input-live-feedback"
-                                        placeholder="Informe o Bairro"
-                                        trim
-                                        ></b-form-input>
-                                        <b-form-invalid-feedback id="input-live-feedback">
-                                            Bairro não informado
-                                        </b-form-invalid-feedback>
+                                    <div class="row justify-center" style="width:50%">
+                                        <div role="group" class="col" style="padding: 10px;">
+                                            <label for="input-selected">Estado:</label>
+                                            <b-form-select id="input-selected" v-model="selected" :options="options" :state="selectedState" ></b-form-select>
+                                        </div>
                                     </div>
-                                    <div role="group" class="col" style="padding: 10px">
-                                        <label for="input-live">Cidade:</label>
-                                        <b-form-input
-                                        type="text"
-                                        required
-                                        id="input-cidade"
-                                        v-model="cidade"
-                                        :state="cidadeState"
-                                        aria-describedby="input-live-help input-live-feedback"
-                                        placeholder="Informe a Cidade"
-                                        trim
-                                        ></b-form-input>
-                                        <b-form-invalid-feedback id="input-live-feedback">
-                                            Cidade não informada
-                                        </b-form-invalid-feedback>
-                                    </div>
-                                </div>
-                                <div class="row justify-center" style="width:50%">
-                                    <div role="group" class="col" style="padding: 10px;">
-                                        <label for="input-selected">Estado:</label>
-                                        <b-form-select id="input-selected" v-model="selected" :options="options" :state="selectedState" ></b-form-select>
-                                    </div>
-                                </div>
-                            </b-card-text>
-                        </b-card>
-                    </b-card-group>
-                    <div style="margin:10px">
-                        <b-button type="submit" variant="outline-success" style="margin:5px">Confrimar</b-button>
-                        <b-button type="reset" variant="outline-secondary" href="/inicio" style="margin:5px">Voltar</b-button>
+                                </b-card-text>
+                            </b-card>
+                        </b-card-group>
+                        <div style="margin:10px">
+                            <b-button type="submit" variant="outline-success" style="margin:5px">Confrimar</b-button>
+                            <b-button type="reset" variant="outline-secondary" href="/inicio" style="margin:5px">Voltar</b-button>
+                        </div>
+                        
                     </div>
-                    
-                </div>
-            </b-form>
+                </b-form>
+            </b-overlay>
         </div>
     </div>
 </template>
@@ -163,7 +165,7 @@
         },
         data() {
         return {
-            show: true,
+            show: false,
             email: '',
             rua:'',
             numero:'',
@@ -207,38 +209,43 @@
 
             onSubmit(evt) {
                 evt.preventDefault()
+                this.show = true
                 axios.post('http://127.0.0.1:8000/api/propriedade/store',{ 
                 email: this.email,
                 rua: this.rua,
                 numero: this.numero,
-                complemento:'',
+                complemento:this.complemento,
                 bairro: this.bairro,
                 cidade: this.cidade,
                 estado: this.selected,
                 })
 
                 .then(response => {
-                if(response.data.tipo == 'sucesso'){
-                this.$swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: response.data.mensagem,
-                showConfirmButton: true,
-                })
-
-                this.onReset(evt)
-                }
-                
-                if(response.data.tipo == 'erro'){
+                    this.show = !this.show
+                    
+                    if(response.data.tipo == 'sucesso'){
                     this.$swal.fire({
-                        position: 'center',
-                        icon: 'error',
-                        title: response.data.mensagem,
-                        showConfirmButton: true,
+                    position: 'center',
+                    icon: 'success',
+                    title: response.data.mensagem,
+                    showConfirmButton: true,
                     })
-                }
+
+                    this.onReset(evt)
+                    }
+                    
+                    if(response.data.tipo == 'erro'){
+                        this.$swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: response.data.mensagem,
+                            showConfirmButton: true,
+                        })
+                    }
                 })
                 .catch((error) => {
+                    this.show = !this.show
+
                     console.log(error);
                     this.$swal.fire({
                         icon: 'error',
@@ -259,11 +266,6 @@
                 this.cidade = ''
                 this.estado = ''
                 this.selected = null
-                // // Trick to reset/clear native browser form validation state
-                this.show = false
-                this.$nextTick(() => {
-                this.show = true
-                })
             }
         },
         

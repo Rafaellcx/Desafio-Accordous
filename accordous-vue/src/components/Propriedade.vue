@@ -4,7 +4,14 @@
             <b-card-group deck>
                 <b-card header="Propriedades" class="text-center">
                     <b-card-text>
-                        <b-table :fields="fields" :items="items" responsive="sm">
+                        <b-table 
+                        id="my-table"
+                        :fields="fields" 
+                        :items="items" 
+                        responsive="sm"
+                        :per-page="perPage"
+                        :current-page="currentPage"
+                        >
                           <template v-slot:cell(actions)="data">
                             <b-button size="sm" class="mr-2" variant="info" @click="contrato(data)">{{textoContrato}}</b-button>
                             <b-button size="sm" variant="danger" @click="excluirPropriedade(data)">Excluir</b-button>
@@ -14,9 +21,29 @@
                 </b-card>
             </b-card-group>
         </div>
+        <div>
+        <div class="centro">
+          <b-pagination
+            v-model="currentPage"
+            :total-rows="rows"
+            :per-page="perPage"
+            aria-controls="my-table"
+          ></b-pagination>
+
+          <p class="mt-3">Página Atual: <strong>{{ currentPage }}</strong></p>
+        </div>
+        </div>
     </div>
     
 </template>
+
+<style>
+  .centro {
+    position:absolute;
+    margin:10px;
+    left:45%;
+  }
+</style>
 
 <script>
   import axios from 'axios'
@@ -28,7 +55,8 @@
     name: 'Propriedade',
     data() {
       return {
-        
+        perPage: 3,
+        currentPage: 1,
         textoContrato:'Contrato',
         fields: [
           { key: 'email', sortable: true },
@@ -42,6 +70,11 @@
         ],
         items: [],
         
+      }
+    },
+    computed: {
+      rows() {
+        return this.items.length
       }
     },
     methods:{
