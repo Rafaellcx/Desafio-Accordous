@@ -55,7 +55,7 @@
     name: 'Propriedade',
     data() {
       return {
-        perPage: 3,
+        perPage: 5,
         currentPage: 1,
         textoContrato:'Contrato',
         fields: [
@@ -145,30 +145,26 @@
           confirmButtonText: 'Sim'
         }).then((result) => {
           if (result.isConfirmed) {
-            // this.$q.loading.show();
+         
             axios.post('http://127.0.0.1:8000/api/propriedade/destroy',{ 
             id
             })
 
             .then(response => {
             if(response.data.tipo == 'sucesso'){
-              // this.$q.loading.hide();
+         
               this.listaPropriedades();
               this.$swal.fire({
                 position: 'center',
                 icon: 'success',
                 title: response.data.mensagem,
                 showConfirmButton: true,
-                // timer: 2000
+         
               })
-              // .then((result) => {
-              //   if (result.isConfirmed) {
-
-              //   }
-              // })
+         
             }
             if(response.data.tipo == 'erro'){
-              // this.$q.loading.hide();
+         
               this.$swal.fire({
               position: 'center',
               icon: 'error',
