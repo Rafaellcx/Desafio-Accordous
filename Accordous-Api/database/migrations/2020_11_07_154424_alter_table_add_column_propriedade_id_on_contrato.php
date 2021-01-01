@@ -27,7 +27,7 @@ class AlterTableAddColumnPropriedadeIdOnContrato extends Migration
     public function down()
     {
         Schema::table('contrato', function (Blueprint $table) {
-            $table->dropForeign('contrato_propriedade_id_unique');
+            $table->dropForeign('contrato_propriedade_id_foreign');
             $table->dropColumn('propriedade_id');
         });
     }
